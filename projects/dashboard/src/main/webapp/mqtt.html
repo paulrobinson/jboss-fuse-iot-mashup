@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+ 
+  if(!("WebSocket" in window)){
+  $('#chatLog, input, button, #examples').fadeOut("fast");
+  $('<p>Oh no, you need a browser that supports WebSockets. How about <a href="http://www.google.com/chrome">Google Chrome</a>?</p>').appendTo('#container');
+  }else{
+      //The user has WebSockets
+ 
+      sendConnect();
+
+      function sendConnect(){
+          var socket;
+          var host = "ws://localhost:9292/mqttSend";
+ 
+          try{
+              var socket = new WebSocket(host);
+              message('<p class="event">Socket Status: '+socket.readyState);
+ 
+              socket.onopen = function(){
+                 message('<p class="event">Socket Status: '+socket.readyState+' (open)');
+              }
+ 
+              socket.onmessage = function(msg){
+            	 message(''+msg.data);
+              }
+ 
+              socket.onclose = function(){
+                message('<p class="event">Socket Status: '+socket.readyState+' (Closed)');
+              }         
+ 
+          } catch(exception){
+             message('<p>Error'+exception);
+          }
+
+         
+          
+          function send(){
+              var text =  $('#sendContent').val()+','+$('#sendtimes').val();           
+              try{
+                  socket.send(text);
+                  message('<p class="event">Sent: '+text)
+              } catch(exception){
+                 message('<p class="warning">');
+              }
+           
+          }
+ 
+          function message(msg){
+            $('#chatLog').append(msg+'</p>');
+          }
+
+          
+ 
+          $('#sendContent').keypress(function(event) {
+              if (event.keyCode == '13') {
+                send();
+              }
+          });   
+ 
+          $('#disconnect').click(function(){
+             socket.close();
+          });
+ 
+      }//End sendConnect
+
+ 
+  }//End else
+ 
+});	
+</script>
+<title>MQTT Console</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.responsive.css" rel="stylesheet">
+<style type="text/css">
+      body { padding-top: 40px; }
+</style>
+</head>
+<body>
+   <div class="container-fluid">
+      <div class="row-fluid">
+		<div class="navbar navbar-fixed-top">
+      		<div class="navbar-inner">
+        		<div class="container">
+          			<a class="brand" href="#">MQTT Sender Console</a>
+        		</div>
+      		</div>
+    	</div>    
+    	<div id="container">
+			<div class="span6">
+				<div id="connect">
+					<div class="page-header">
+	              		<h2>ENTER MQTT CONTENT</h2>
+	            	</div>
+	            	Content to Send: <input type="text" id="sendContent" /><BR/>
+	            	Number of times to repeat: <input type="text" id="sendtimes" value="10" /><BR/><BR/>
+	            	<div class="form-actions">
+         				<button id="disconnect">Disconnect</button>   
+         			</div>   
+    			</div>
+    		</div>
+       		<div class="span4">
+          		<div class="page-header">
+            		<h2>Console Output</h2>
+            		<pre id="chatLog"></pre>
+          		</div>
+        	</div>
+		</div><!-- #container -->
+	</div><!-- #row-fluid -->
+	</div><!-- #container-fluid -->
+</body>
+</html>​

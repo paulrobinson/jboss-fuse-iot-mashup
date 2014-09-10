@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
+	
+	<bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+	  	<property name="brokerURL" value="tcp://localhost:31313"/>
+	    <property name="userName" value="admin"/>
+	    <property name="password" value="zBdeAcWGy2Bd"/>
+  	</bean>
+  	<bean id="displayBean" class="org.blogdemo.dashboard.DisplayBean" />
+  	<bean id="MQTTProducer" class="org.blogdemo.mqtt.SimpleMQTTProducer" /> 
+  	<bean id="AMQPProducer" class="org.blogdemo.amqp.AMQPProducer" />       
+  	    
+	<bean id="traceFormatter" class="org.apache.camel.processor.interceptor.DefaultTraceFormatter">
+	    <property name="showBody" value="true"/>
+	    <property name="showHeaders" value="true"/>
+	</bean>
+    <!--
+        Simple camel route which send every one minute a message on the console.
+    -->
+    <!-- <route id="amqpDisplayRoute">
+	      <from uri="activemq:queue:amqpDisplay"/>
+	      <log message="The message contains ${body}"/>
+	      <to uri="websocket://echo?host=localhost&amp;port=9292&amp;sendToAll=true"/>
+	    </route>   
+	    <route id="mqttDisplayRoute">
+	      <from uri="activemq:queue:mqttDisplay"/>
+	      <log message="The MQTT message contains ${body}"/>
+	      <to uri="websocket://echo?host=localhost&amp;port=9292&amp;sendToAll=true"/>
+	    </route>     
+	    <route id="stompDisplayRoute">
+	      <from uri="activemq:queue:stompDisplay"/>
+	      <log message="The STOMP message contains ${body}"/>
+	      <to uri="websocket://echo?host=localhost&amp;port=9292&amp;sendToAll=true"/>
+	    </route>   -->
+	    
+<camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
+    <route id="queueRoute">
+        <from uri="activemq:queue:amqpDisplay"/>
+        <from uri="activemq:queue:mqttDisplay"/>
+        <from uri="activemq:queue:stompDisplay"/>
+        <log message="The message contains ${body}"/>
+        <bean method="add" ref="displayBean"/>
+    </route>
+    <route id="websocketClientRoute">
+        <from uri="websocket://echo?host=localhost&amp;port=9292"/>
+        <log message="Content contains ${body}"/>
+        <bean method="getAllForWebDisplay" ref="displayBean"/>
+        <log message="DisplayBean contains ${body}"/>
+        <to uri="websocket://echo?host=localhost&amp;port=9292"/>
+    </route>
+    <route id="mqttClientRoute">
+        <from uri="websocket://mqttSend?host=localhost&amp;port=9292"/>
+        <log message="Content contains ${body}"/>
+        <bean method="run" ref="MQTTProducer"/>
+        <setBody>
+            <constant>MQTT SENT!</constant>
+        </setBody>
+        <to uri="websocket://mqttSend?host=localhost&amp;port=9292"/>
+    </route>
+    <route id="amqpClientRoute" >
+        <from uri="websocket://amqpSend?host=localhost&amp;port=9292"/>
+        <log message="Content contains ${body}"/>
+        <bean method="send" ref="AMQPProducer"/>
+        <setBody>
+            <constant>AMQP SENT!</constant>
+        </setBody>
+        <to uri="websocket://amqpSend?host=localhost&amp;port=9292"/>
+    </route>
+</camelContext>
+
+</beans>

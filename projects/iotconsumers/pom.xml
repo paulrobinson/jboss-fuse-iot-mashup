@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+									      http://maven.apache.org/maven-v4_0_0.xsd">
+															  
+		<groupId>org.blogdemo</groupId>
+		<artifactId>iotconsumers</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<packaging>pom</packaging>
+		<modelVersion>1.0.0-SNAPSHOT</modelVersion>
+
+		<name>JBoss FUSE : iot Demo</name>
+		<description>AMQP MQTT STOMP example</description>
+
+		<modules>
+			<module>amqp-consumer</module>
+			<module>mqtt-consumer</module>
+			<module>stomp-consumer</module>
+		</modules>
+
+</project>
