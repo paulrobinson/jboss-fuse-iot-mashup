@@ -60,7 +60,7 @@ public class AMQPProducer {
         	
         	Properties props = new Properties();
         	props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.qpid.amqp_1_0.jms.jndi.PropertiesFileInitialContextFactory");
-        	props.setProperty(Context.PROVIDER_URL,"src/main/resources/biodash.properties");
+        	props.setProperty(Context.PROVIDER_URL,"src/main/resources/amqp.properties");
         	javax.naming.Context ctx = new InitialContext(props);
         	
         	factory = (ConnectionFactory) ctx.lookup(CONNECTION_FACTORY_NAME);

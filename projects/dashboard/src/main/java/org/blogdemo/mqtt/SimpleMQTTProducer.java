@@ -20,6 +20,9 @@
  * */
 package org.blogdemo.mqtt;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import org.fusesource.mqtt.client.BlockingConnection;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
@@ -37,18 +40,21 @@ public class SimpleMQTTProducer {
 	
 	
 	
+	
 	public void run(String allcontent){
 		try{
 			String[] params = allcontent.split(",");
 			String sendContent = params[0];
             int number2send = Integer.valueOf(params[1]);
             
+            Properties props = new Properties();            
+			props.load(SimpleMQTTProducer.class.getResourceAsStream("/mqtt.properties"));
+            
 			MQTT mqtt = new MQTT();
-			mqtt.setHost("tcp://localhost:1883");
+			mqtt.setHost(props.getProperty(BROKER_URL));
 			
-			mqtt.setUserName("admin");
-			mqtt.setPassword("zBdeAcWGy2Bd");
-			
+			mqtt.setUserName(props.getProperty(USERNAME));
+			mqtt.setPassword(props.getProperty(PASSWORD));
 			
 	        BlockingConnection connection = mqtt.blockingConnection();
 	        
