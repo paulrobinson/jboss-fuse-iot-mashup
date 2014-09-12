@@ -71,6 +71,7 @@ There are 4 pages to play with
 	http://localhost:8080/stomp.html
 		
 ##Related Video		
+https://vimeo.com/105984107
 		
 ##TODO
 	Setup SNI static route in OSE
