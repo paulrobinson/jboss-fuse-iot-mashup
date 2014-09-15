@@ -26,7 +26,33 @@ Create a new container for the broker. Under MQ, click on the red triangle in th
 ![brokercontainer](https://github.com/weimeilin79/iot-mashup/blob/master/docs/image/04-brokercontainer.png?raw=true)
 
 ##Create different routes
+Make sure all 3 camel projects has the correct broker setting, with the IP and Port on the OpenShift and ID/PWD as well.
+There are 4 property files that stores authentication data for camel route to retrieve later.
+		
+		amqp-consumer/src/main/fabric8openshiftconfig.properties
+		mqtt-consumer/src/main/fabric8openshiftconfig.properties
+		stomp-consumer/src/main/fabric8openshiftconfig.properties 
+		dashboard/src/main/resources/openshiftconfig.properties
 
+Change it according to your setting
+		
+		username=admin
+		password=awzWIkuBY7Xg
+		internalIP=127.4.65.1
+		
+With local web application, instead of using camel components to poll the message, normal Java JMS or API is used. So 2 more properties needs to be configured as well.
+		dashboard/src/main/resources/amqp.properties
+		dashboard/src/main/resources/mqtt.properties
+
+For amqp.properties, please update your user login name and password
+		connectionfactory.myJmsFactory = amqp://admin:awzWIkuBY7Xg@localhost:5672/test/
+
+For mqtt.properties, please also update your user login name and password
+		username=admin
+		password=awzWIkuBY7Xg
+
+
+##Deploy projects
 Change the setting in your .m2/setting.xml
 
     <server>
