@@ -41,6 +41,7 @@ Change it according to your setting
 		internalIP=127.4.65.1
 		
 With local web application, instead of using camel components to poll the message, normal Java JMS or API is used. So 2 more properties needs to be configured as well.
+		
 		dashboard/src/main/resources/amqp.properties
 		dashboard/src/main/resources/mqtt.properties
 
