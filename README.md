@@ -45,9 +45,11 @@ With local web application, instead of using camel components to poll the messag
 		dashboard/src/main/resources/mqtt.properties
 
 For amqp.properties, please update your user login name and password
+
 		connectionfactory.myJmsFactory = amqp://admin:awzWIkuBY7Xg@localhost:5672/test/
 
 For mqtt.properties, please also update your user login name and password
+
 		username=admin
 		password=awzWIkuBY7Xg
 
