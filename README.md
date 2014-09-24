@@ -1,11 +1,3 @@
-Title - IoT mash up 
-Author -Christina
-Summary - Showcase web application talking to messaging queue via AMQP, MQTT and WebSocket over Stomp, and setup a broker on openshift support these protocols and added camel route to read the messages using the components.
-
-Level - Intermediate
-Technologies - JBoss Fuse, JBoss A-MQ
-
-
 # Messaging on Cloud
 
 In this demo, we will create a broker that takes in MQTT, STOMP, and AMQP protocol on Openshift.
