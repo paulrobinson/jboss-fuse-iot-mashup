@@ -25,6 +25,14 @@ Create a new container for the broker. Under MQ, click on the red triangle in th
 ![brokertriangle](https://github.com/weimeilin79/iot-mashup/blob/master/docs/image/03-brokertriangle.png?raw=true)
 ![brokercontainer](https://github.com/weimeilin79/iot-mashup/blob/master/docs/image/04-brokercontainer.png?raw=true)
 
+Title - IoT Mash-up
+Author - Christina Lin
+Summary - Showcase 3 different protocols in JBoss A-MQ and Fuse on top of OpenShift, access messaging with Camel components 
+and also have WebSocket and javascript, Qpid and MQTT client API examples. 
+
+Level - Intermediate
+Technologies - JBoss Fuse, JBoss A-MQ
+
 ##Create different routes
 Make sure all 3 camel projects has the correct broker setting, with the IP and Port on the OpenShift and ID/PWD as well.
 There are 4 property files that stores authentication data for camel route to retrieve later.
