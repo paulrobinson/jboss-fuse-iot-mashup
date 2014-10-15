@@ -1,10 +1,10 @@
 github_repo_url: https://github.com/weimeilin79/iot-mashup
 title: IoT mash up 
-technologies: 
-  - JBoss Fuse
-  - Camel
-  - OpenShift
+technologies:
+  JBoss Fuse
+  Camel
+  OpenShift
 summary: Showcase web application talking to messaging queue via AMQP, MQTT and WebSocket over Stomp, and setup a broker on openshift support these protocols and added camel route to read the messages using the components.
 author: Christina Lin
-Level - Intermediate
-experimental: false
+level: Intermediate
+
