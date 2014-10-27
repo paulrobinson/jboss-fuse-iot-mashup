@@ -17,7 +17,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <fabric8.serverId>fabric8.openshift.repo</fabric8.serverId>
     <fabric8.parentProfiles>feature-camel</fabric8.parentProfiles>                                                       
-	<fabric8.profile>AMQPReader</fabric8.profile>                                                                    
+	<fabric8.profile>iotmashup-amqpreader</fabric8.profile>                                                                    
 	<fabric8.bundles>wrap:mvn:org.apache.qpid/qpid-amqp-1-0-client-jms/0.24 wrap:mvn:org.apache.qpid/qpid-amqp-1-0-common/0.24 wrap:mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.0 wrap:mvn:org.apache.qpid/qpid-amqp-1-0-client/0.24</fabric8.bundles> <!--   -->    
 	<fabric8.features>activemq-camel camel-amqp</fabric8.features>               
 	<fabric8.featureRepos>mvn:org.apache.camel.karaf/apache-camel/${version:camel}/xml/features</fabric8.featureRepos>

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1414418022974
+Build-Jdk: 1.7.0_60-ea
+Built-By: christina
+Bundle-ManifestVersion: 2
+Bundle-Name: A Camel Blueprint Route
+Bundle-SymbolicName: mqtt-consumer
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.blogdemo.mqtt.consumer;version="1.0.0.SNAPSHOT"
+Import-Package: org.apache.activemq.camel.component;version="[5.9,6)",or
+ g.osgi.service.blueprint;version="[1.0.0,2.0.0)"
+Tool: Bnd-1.50.0

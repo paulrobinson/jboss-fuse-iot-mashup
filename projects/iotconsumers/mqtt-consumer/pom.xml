@@ -17,7 +17,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <fabric8.serverId>fabric8.openshift.repo</fabric8.serverId>
     <fabric8.parentProfiles>feature-camel</fabric8.parentProfiles>                                                     
-	<fabric8.profile>MQTTReader</fabric8.profile>               
+	<fabric8.profile>iotmashup-mqttreader</fabric8.profile>               
 	<fabric8.features>camel-mqtt activemq-camel</fabric8.features>               
 	<fabric8.featureRepos>mvn:org.apache.camel.karaf/apache-camel/${version:camel}/xml/features</fabric8.featureRepos>
     

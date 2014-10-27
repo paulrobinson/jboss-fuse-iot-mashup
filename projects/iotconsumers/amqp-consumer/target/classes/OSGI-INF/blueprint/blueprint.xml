@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+       xmlns:camel="http://camel.apache.org/schema/blueprint"
+       xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+	<cm:property-placeholder id="openshiftconfig" persistent-id="openshiftconfig"/>
+	<bean id="amqp" class="org.apache.camel.component.amqp.AMQPComponent">
+	 <property name="connectionFactory" ref="amqConnectionFactory" />
+	</bean>
+	
+	<bean id="amqConnectionFactory" class="org.apache.qpid.amqp_1_0.jms.impl.ConnectionFactoryImpl" factory-method="createFromURL">
+	 <argument type="java.lang.String" value="amqp://${username}:${password}@${internalIP}:5672/test/"/>
+	</bean>
+	
+	<bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+	  	<property name="brokerURL" value="tcp://${internalIP}:31313"/>
+	    <property name="userName" value="${username}"/>
+	    <property name="password" value="${password}"/>
+  	</bean>
+  	
+  
+  	<camelContext streamCache="true" id="blueprintContext" trace="false" xmlns="http://camel.apache.org/schema/blueprint">
+	    <propertyPlaceholder id="properties" location="blueprint:openshiftconfig"/>
+	    <route id="AMQPConsumerRoute">
+	      <from uri="amqp:queue:myAMQPDemo"/>
+	      <log message="The message contains ${body}"/>
+	      <convertBodyTo type="java.lang.String"/>
+	      <to uri="activemq:queue:amqpDisplay"/>
+	    </route>
+  	</camelContext>
+
+</blueprint>
